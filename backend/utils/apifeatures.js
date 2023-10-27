@@ -6,34 +6,50 @@ class ApiFeatures {
 
   search() {
     const keyword = this.queryStr.keyword
-      ? {
-          name: {
+      ?
+     { $or: [
+        {
+          title: {
+            $regex: this.queryStr.keyword,
+            $options: "i",
+          },
+        },
+        {
+          desc: {
+            $regex: this.queryStr.keyword,
+            $options: "i",
+          },
+        },
+        {
+          category: {
             $regex: this.queryStr.keyword,
             $options: "i",
           },
         }
-      : {};
+    ]}
+    : [];
 
     this.query = this.query.find({ ...keyword });
+    
     return this;
   }
 
-  filter() {
-    const queryCopy = { ...this.queryStr };
-    //   Removing some fields for category
-    const removeFields = ["keyword", "page", "limit"];
+  // filter() {
+  //   const queryCopy = { ...this.queryStr };
+  //   //   Removing some fields for category
+  //   const removeFields = ["keyword", "page", "limit"];
 
-    removeFields.forEach((key) => delete queryCopy[key]);
+  //   removeFields.forEach((key) => delete queryCopy[key]);
 
-    // Filter For Price and Rating
+  //   // Filter For Price and Rating
 
-    let queryStr = JSON.stringify(queryCopy);
-    queryStr = queryStr.replace(/\b(gt|gte|lt|lte)\b/g, (key) => `$${key}`);
+  //   let queryStr = JSON.stringify(queryCopy);
+  //   queryStr = queryStr.replace(/\b(gt|gte|lt|lte)\b/g, (key) => `$${key}`);
 
-    this.query = this.query.find(JSON.parse(queryStr));
+  //   this.query = this.query.find(JSON.parse(queryStr));
 
-    return this;
-  }
+  //   return this;
+  // }
 
   pagination(resultPerPage) {
     const currentPage = Number(this.queryStr.page) || 1;

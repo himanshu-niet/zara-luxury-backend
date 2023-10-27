@@ -31,13 +31,7 @@ app.use("/api/v1", user);
 // app.use("/api/v1", order);
 // app.use("/api/v1", payment);
 
-// app.use(express.static(path.join(__dirname, "../frontend/build")));
-
-// app.get("*", (req, res) => {
-//   res.sendFile(path.resolve(__dirname, "../frontend/build/index.html"));
-// });
-
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use(express.static(path.join(__dirname, "../frontend")));
 
 
 app.use(express.static(path.join(__dirname, "../admin")));
@@ -45,6 +39,12 @@ app.use(express.static(path.join(__dirname, "../admin")));
 app.get("/admin/*", (req, res) => {
   res.sendFile(path.resolve(__dirname, "../admin/index.html"));
 });
+
+
+app.get("/*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "../frontend/index.html"));
+});
+
 
 // Middleware for Errors
 app.use(errorMiddleware);
