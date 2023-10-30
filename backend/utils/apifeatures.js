@@ -21,7 +21,19 @@ class ApiFeatures {
           },
         },
         {
+          detail: {
+            $regex: this.queryStr.keyword,
+            $options: "i",
+          },
+        },
+        {
           category: {
+            $regex: this.queryStr.keyword,
+            $options: "i",
+          },
+        },
+        {
+          subCategory: {
             $regex: this.queryStr.keyword,
             $options: "i",
           },
@@ -50,6 +62,33 @@ class ApiFeatures {
 
   //   return this;
   // }
+
+
+  category(){
+    let data={};
+     if(this.queryStr.category!='null'){
+     data= {
+        category: new RegExp(`^${this.queryStr.category}$`, "i")
+        }
+     }
+
+    this.query = this.query.find({ ...data });
+    console.log(this.query)
+    return this;
+  }
+
+  subCategory(){
+    let data={};
+     if(this.queryStr.subCategory!='null'){
+     data= {
+        subCategory: new RegExp(`^${this.queryStr.subCategory}$`, "i")
+        }
+     }
+
+    this.query = this.query.find({ ...data });
+    console.log(this.query)
+    return this;
+  }
 
   pagination(resultPerPage) {
     const currentPage = Number(this.queryStr.page) || 1;

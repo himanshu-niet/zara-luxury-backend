@@ -7,13 +7,38 @@ const cloudinary = require("cloudinary");
 // Create Product -- Admin
 exports.createProduct = catchAsyncErrors(async (req, res, next) => {
 
-  const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar, {
-    folder: "products",
-  });
+  
 
-   req.body.images={
-    public_id: myCloud.public_id,
-    url: myCloud.secure_url,
+  let images = [];
+
+  if (typeof req.body.images === "string") {
+    images.push(req.body.images);
+  } else {
+    images = req.body.images;
+  }
+
+  if (images !== undefined) {
+    
+    
+    const imagesLinks = [];
+   
+
+    for (let i = 0; i < images.length; i++) {
+      const result = await cloudinary.v2.uploader.upload(images[i], {
+        folder: "products",
+      });
+
+
+
+      imagesLinks.push({
+        public_id: result.public_id,
+        url: result.secure_url,
+      });
+    }
+    
+    req.body.images = imagesLinks;
+
+    
   }
  
   req.body.user = req.user.id;
@@ -33,17 +58,22 @@ exports.getAllProducts = catchAsyncErrors(async (req, res, next) => {
   const productsCount = await Product.countDocuments();
 
   const apiFeature = new ApiFeatures(Product.find(), req.query)
-    .search()
-    // .filter();
+     .search()
+     .category()
+     .subCategory()
 
   let products = await apiFeature.query;
-  console.log(products)
+  // console.log(products)
+  
+  // console.log(apiFeature)
 
   let filteredProductsCount = products.length;
+  console.log(filteredProductsCount)
 
   apiFeature.pagination(resultPerPage);
 
   products = await apiFeature.query;
+  
 
   res.status(200).json({
     success: true,

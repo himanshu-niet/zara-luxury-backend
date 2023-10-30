@@ -8373,7 +8373,9 @@ h1, h2, h3, h4, h5,
 
 .hero-wrap {
   width: 100%;
-  position: relative; }
+  position: relative;
+max-height: 200px;
+}
   .hero-wrap .overlay {
     position: absolute;
     top: 0;
@@ -8415,7 +8417,7 @@ h1, h2, h3, h4, h5,
         background: #fff !important;
         color: #000000; }
   .hero-wrap.hero-bread {
-    padding: 12em 0; }
+    padding: 5em 0; }
 
 .mouse {
   position: absolute;
@@ -9711,7 +9713,9 @@ textarea.form-control {
       transform: translate(-50%, -50%);
       color: #fff; }
     .ftco-footer-social li a:hover {
-      color: #000000; }
+      color: #000000;
+      background-color: gray; 
+    }
 
 #map {
   width: 100%; }
@@ -10465,6 +10469,21 @@ textarea.form-control {
   -o-box-shadow: none !important;
   box-shadow: none !important; }
 
+   .a {
+    padding: 10px 0;
+    display: block;
+    width: 100%;
+    font-size: 12px;
+    text-transform: uppercase;
+    background: transparent;
+    color: #dbcc8f;
+    position: relative;
+    -webkit-box-shadow: none !important;
+    -moz-box-shadow: none !important;
+    -ms-box-shadow: none !important;
+    -o-box-shadow: none !important;
+    box-shadow: none !important; }
+
 .panel {
   -webkit-box-shadow: none !important;
   -moz-box-shadow: none !important;
@@ -10664,3 +10683,14 @@ textarea.form-control {
   100% {
     stroke-dasharray: 89, 200;
     stroke-dashoffset: -136px; } }
+
+
+
+    .serButton {
+      all: unset;
+    }
+    
+    .serButton:focus {
+      outline: revert;
+    }
+  
