@@ -9714,7 +9714,7 @@ textarea.form-control {
       color: #fff; }
     .ftco-footer-social li a:hover {
       color: #000000;
-      background-color: gray; 
+      background-color: #C8B255; 
     }
 
 #map {
@@ -10694,3 +10694,6 @@ textarea.form-control {
       outline: revert;
     }
   
+   ._-LJ2W{
+    background-color: white !important;
+   }
